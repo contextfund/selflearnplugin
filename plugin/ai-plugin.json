@@ -1,0 +1,18 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Self-learned skills (no auth)",
+  "name_for_model": "selflearnedskills",
+  "description_for_human": "Plugin for storing the self-learned skills of GPT-4.",
+  "description_for_model": "Plugin for storing short summaries of my self-learned skills (successful interactions with users).",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "PLUGIN_HOSTNAME/openapi.yaml",
+    "is_user_authenticated": false
+  },
+  "logo_url": "PLUGIN_HOSTNAME/logo.png",
+  "contact_email": "support@example.com",
+  "legal_info_url": "https://example.com/legal"
+}

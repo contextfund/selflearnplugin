@@ -1,0 +1,125 @@
+openapi: 3.0.1
+info:
+  title: Self-learned skills plugin
+  description: A plugin that allows you to store and retrieve self-learned skills. You store it items to this to log key skills that resulted from a long transaction and then retrieve them later to remind yourself of the skills you learned.
+  version: 'v1'
+servers:
+  - url: PLUGIN_HOSTNAME
+paths:
+  /skills/{username}:
+    get:
+      operationId: getSkills
+      summary: Get the list of skills
+      parameters:
+      - in: path
+        name: username
+        schema:
+            type: string
+        required: true
+        description: The name of the user.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getSkillsResponse'
+    post:
+      operationId: addSkill
+      summary: Add a skill to the list
+      parameters:
+      - in: path
+        name: username
+        schema:
+            type: string
+        required: true
+        description: The name of the user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addSkillRequest'
+      responses:
+        "200":
+          description: OK
+    delete:
+      operationId: deleteSkill
+      summary: Delete a skill from the list
+      parameters:
+      - in: path
+        name: username
+        schema:
+            type: string
+        required: true
+        description: The name of the user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/deleteSkillRequest'
+      responses:
+        "200":
+          description: OK
+
+  /setskills/{username}:
+      post:
+          operationId: setSkills
+          summary: Set the list of skills
+          parameters:
+          - in: path
+            name: username
+            schema:
+                type: string
+            required: true
+            description: The name of the user.
+          requestBody:
+            required: true
+            content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/setSkillsRequest'
+          responses:
+            "200":
+                description: OK
+
+components:
+  schemas:
+    getSkillsResponse:
+      type: object
+      properties:
+        skills:
+          type: array
+          items:
+            type: string
+          description: The list of skills.
+    addSkillRequest:
+      type: object
+      required:
+      - skill
+      properties:
+        skill:
+          type: string
+          description: The skill to add to the list.
+          required: true
+    deleteSkillRequest:
+      type: object
+      required:
+      - skill_idx
+      properties:
+        skill_idx:
+          type: integer
+          description: The index of the skill to delete.
+          required: true
+    setSkillsRequest:
+        type: object
+        required:
+        - skills
+        properties:
+            skills:
+              type: array
+              items:
+                  type: string
+              description: The list of skills.
+              required: true
